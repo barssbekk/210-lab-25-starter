@@ -101,10 +101,12 @@ long sortVector(vector<string> data) {
 // sort list
 long sortList(list<string> data) {
     auto start{high_resolution_clock::now()};
+
     for (int i{0}; i < NUM_RUNS; ++i) {
         list<string> temp{data};
         temp.sort();
     }
+
     auto end{high_resolution_clock::now()};
     return duration_cast<milliseconds>(end - start).count();
 }
@@ -113,17 +115,46 @@ long sortList(list<string> data) {
 // insert vec
 long insertVector(vector<string> data) {
     auto start{high_resolution_clock::now()};
-    data.insert(data.begin() + data.size() / 2, "TESTCODE");
+
+    for (int i{0}; i < NUM_RUNS; ++i) {
+        vector<string> temp{data};
+        temp.insert(temp.begin() + temp.size() / 2, "TESTCODE");
+    }
+
     auto end{high_resolution_clock::now()};
     return duration_cast<milliseconds>(end - start).count();
 }
 
 // TODO: add insert list
+long insertList(list<string> data) {
+    auto start{high_resolution_clock::now()};
+
+    for (int i{0}; i < NUM_RUNS; ++i) {
+        list<string> temp{data};
+
+        auto it = temp.begin(); // iterator
+        int mid = temp.size() / 2;
+
+        for (int j{0}; j < mid; ++j) { // half
+            ++it;
+        }
+
+        temp.insert(it, "TESTCODE");
+    }
+
+    auto end{high_resolution_clock::now()};
+    return duration_cast<milliseconds>(end - start).count();
+}
 
 // insert set
 long insertSet(set<string> data) {
     auto start{high_resolution_clock::now()};
-    data.insert("TESTCODE");
+
+    for (int i{0}; i < NUM_RUNS; ++i) {
+        set<string> temp{data};
+        temp.insert("TESTCODE");
+    }
+
     auto end{high_resolution_clock::now()};
     return duration_cast<milliseconds>(end - start).count();
 }
