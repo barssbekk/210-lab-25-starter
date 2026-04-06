@@ -163,7 +163,12 @@ long insertSet(set<string> data) {
 // delete vec
 long deleteVector(vector<string> data) {
     auto start{high_resolution_clock::now()};
-    data.erase(data.begin() + data.size()/2);
+
+    for (int i{0}; i < NUM_RUNS; ++i) {
+        vector<string> temp{data};
+        temp.erase(temp.begin() + temp.size()/2);
+    }
+
     auto end{high_resolution_clock::now()};
     return duration_cast<milliseconds>(end - start).count();
 }
@@ -172,10 +177,13 @@ long deleteVector(vector<string> data) {
 
 // delete set
 long deleteSet(set<string> data) {
-    data.insert("TESTCODE");
-
     auto start{high_resolution_clock::now()};
-    data.erase("TESTCODE");
+
+    for (int i{0}; i < NUM_RUNS; ++i) {
+        set<string> temp{data};
+        temp.insert("TESTCODE");
+        temp.erase("TESTCODE");
+    }
     auto end{high_resolution_clock::now()};
     return duration_cast<milliseconds>(end - start).count();
 }
