@@ -7,11 +7,12 @@
 #include <set>
 #include <string>
 #include <algorithm>
+#include <iomanip>
 
 using namespace std;
 using namespace chrono;
 
-const int NUM_RUNS{100};
+const int NUM_RUNS{100}; // repeat tests so time is noticeable
 
 long inputVector(const vector<string>& data);
 long inputList(const vector<string>& data);
@@ -160,7 +161,6 @@ long insertVector(vector<string> data) {
     return duration_cast<milliseconds>(end - start).count();
 }
 
-// TODO: add insert list
 long insertList(list<string> data) {
     auto start{high_resolution_clock::now()};
 
@@ -195,7 +195,6 @@ long insertSet(set<string> data) {
 }
 
 // delete
-// delete vec
 long deleteVector(vector<string> data) {
     auto start{high_resolution_clock::now()};
 
@@ -208,7 +207,6 @@ long deleteVector(vector<string> data) {
     return duration_cast<milliseconds>(end - start).count();
 }
 
-// TODO: delete list
 long deleteList(list<string> data) {
     auto start{high_resolution_clock::now()};
 
@@ -227,7 +225,6 @@ long deleteList(list<string> data) {
     return duration_cast<milliseconds>(end - start).count();
 }
 
-// delete set
 long deleteSet(set<string> data) {
     auto start{high_resolution_clock::now()};
 
@@ -240,8 +237,7 @@ long deleteSet(set<string> data) {
     return duration_cast<milliseconds>(end - start).count();
 }
 
-
-
+// IGNORE:
 /* syntax examples:
 auto start = high_resolution_clock::now()
 auto end = high_resolution_clock::now()
