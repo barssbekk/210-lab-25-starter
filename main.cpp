@@ -5,11 +5,14 @@
 #include <list>
 #include <set>
 #include <string>
+#include <algorithm>
+
 using namespace std;
 using namespace chrono;
 
 long inputVector(const vector<string>& data);
 long inputList(const vector<string>& data);
+long inputSet(const vector<string>& data);
 
 
 int main() {
@@ -40,10 +43,19 @@ long inputVector(const vector<string>& data) {
 
 long inputList(const vector<string>& data) {
     auto start{high_resolution_clock::now()};
-    list<string> lst{data.begin(), data.end()};
+    list<string> myList{data.begin(), data.end()};
     auto end{high_resolution_clock::now()};
     return duration_cast<milliseconds>(end - start).count();
 }
+
+long inputSet(const vector<string>& data) {
+    auto start{high_resolution_clock::now()};
+    set<string> st{data.begin(), data.end()};
+    auto end{high_resolution_clock::now()};
+    return duration_cast<milliseconds>(end - start).count();
+}
+
+
 
 
 
