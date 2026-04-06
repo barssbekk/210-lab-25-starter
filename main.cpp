@@ -1,10 +1,16 @@
 #include <iostream>
 #include <chrono>
 #include <fstream>
+#include <vector>
+#include <list>
+#include <set>
+#include <string>
 using namespace std;
 using namespace chrono;
 
 long inputVector(const vector<string>& data);
+long inputList(const vector<string>& data);
+
 
 int main() {
     string filename{"codes.txt"};
@@ -29,8 +35,16 @@ long inputVector(const vector<string>& data) {
     auto start{high_resolution_clock::now()};
     vector<string> vec{data.begin(), data.end()};
     auto end{high_resolution_clock::now()};
-    return duration_cast<nanoseconds>(end - start).count();
+    return duration_cast<milliseconds>(end - start).count();
 }
+
+long inputList(const vector<string>& data) {
+    auto start{high_resolution_clock::now()};
+    list<string> lst{data.begin(), data.end()};
+    auto end{high_resolution_clock::now()};
+    return duration_cast<milliseconds>(end - start).count();
+}
+
 
 
 
