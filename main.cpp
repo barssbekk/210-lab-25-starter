@@ -16,12 +16,16 @@ long inputSet(const vector<string>& data);
 
 long sortVector(vector<string> data);
 long sortList(list<string> data);
+// no need std::sort for list, list alr listed
+
+long insertVector(vector<string> data);
+long insertSet(set<string> data);
 
 int main() {
     string filename{"codes.txt"};
 
     ifstream fileInput{"codes.txt"};
-    if (!fileInput) {
+    if (!fileInput) { // check if file opens
         cerr << "File not found\n";
         return 1;
     }
@@ -57,6 +61,7 @@ long inputSet(const vector<string>& data) {
     return duration_cast<milliseconds>(end - start).count();
 }
 
+// sort
 long sortVector(vector<string> data) {
     auto start{high_resolution_clock::now()};
     sort(data.begin(), data.end());
@@ -71,7 +76,22 @@ long sortList(list<string> data) {
     return duration_cast<milliseconds>(end - start).count();
 }
 
+long insertVector(vector<string> data) {
+    auto start{high_resolution_clock::now()};
+    data.insert(data.begin() + data.size() / 2, "TESTCODE");
+    auto end{high_resolution_clock::now()};
+    return duration_cast<milliseconds>(end - start).count();
+}
 
+// TODO: add insert list
+
+
+long insertSet(set<string> data) {
+    auto start{high_resolution_clock::now()};
+    data.insert("TESTCODE");
+    auto end{high_resolution_clock::now()};
+    return duration_cast<milliseconds>(end - start).count();
+}
 
 
 
