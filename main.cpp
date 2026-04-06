@@ -16,10 +16,12 @@ long inputSet(const vector<string>& data);
 
 long sortVector(vector<string> data);
 long sortList(list<string> data);
-// no need std::sort for list, list alr listed
+// no need std::sort for set, set alr sorted
 
 long insertVector(vector<string> data);
 long insertSet(set<string> data);
+
+long deleteVector(vector<string> data);
 
 int main() {
     string filename{"codes.txt"};
@@ -36,13 +38,25 @@ int main() {
         data.push_back(line);
     }
 
+    cout << "Loaded lines: " << data.size() << '\n';
+    long vecRead {inputVector(data)};
+    long listRead {inputList(data)};
+    long setRead {inputSet(data)};
+
+    cout << "READ TEST\n";
+    cout << "Vector: " << vecRead << " ms\n";
+
     return 0;
 }
 
-// read
+// READ
 long inputVector(const vector<string>& data) {
     auto start{high_resolution_clock::now()};
-    vector<string> vec{data.begin(), data.end()};
+
+    for (int i{0}; i < 1000000; ++i) {
+        vector<string> vec{data.begin(), data.end()};
+    }
+
     auto end{high_resolution_clock::now()};
     return duration_cast<milliseconds>(end - start).count();
 }
@@ -61,7 +75,8 @@ long inputSet(const vector<string>& data) {
     return duration_cast<milliseconds>(end - start).count();
 }
 
-// sort
+// SORT
+// sort vec
 long sortVector(vector<string> data) {
     auto start{high_resolution_clock::now()};
     sort(data.begin(), data.end());
@@ -69,6 +84,7 @@ long sortVector(vector<string> data) {
     return duration_cast<milliseconds>(end - start).count();
 }
 
+// sort list
 long sortList(list<string> data) {
     auto start{high_resolution_clock::now()};
     data.sort();
@@ -76,6 +92,8 @@ long sortList(list<string> data) {
     return duration_cast<milliseconds>(end - start).count();
 }
 
+// INSERT
+// insert vec
 long insertVector(vector<string> data) {
     auto start{high_resolution_clock::now()};
     data.insert(data.begin() + data.size() / 2, "TESTCODE");
@@ -85,7 +103,7 @@ long insertVector(vector<string> data) {
 
 // TODO: add insert list
 
-
+// insert set
 long insertSet(set<string> data) {
     auto start{high_resolution_clock::now()};
     data.insert("TESTCODE");
@@ -93,6 +111,26 @@ long insertSet(set<string> data) {
     return duration_cast<milliseconds>(end - start).count();
 }
 
+// delete
+// delete vec
+long deleteVector(vector<string> data) {
+    auto start{high_resolution_clock::now()};
+    data.erase(data.begin() + data.size()/2);
+    auto end{high_resolution_clock::now()};
+    return duration_cast<milliseconds>(end - start).count();
+}
+
+// TODO: delete list
+
+// delete set
+long deleteSet(set<string> data) {
+    data.insert("TESTCODE");
+
+    auto start{high_resolution_clock::now()};
+    data.erase("TESTCODE");
+    auto end{high_resolution_clock::now()};
+    return duration_cast<milliseconds>(end - start).count();
+}
 
 
 
