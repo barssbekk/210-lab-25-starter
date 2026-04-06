@@ -10,6 +10,8 @@
 using namespace std;
 using namespace chrono;
 
+const int NUM_RUNS{100};
+
 long inputVector(const vector<string>& data);
 long inputList(const vector<string>& data);
 long inputSet(const vector<string>& data);
@@ -44,7 +46,9 @@ int main() {
     long setRead {inputSet(data)};
 
     cout << "READ TEST\n";
-    cout << "Vector: " << vecRead << " ms\n";
+    cout << "Vector:\t" << vecRead  << " ms\n";
+    cout << "List:\t"   << listRead << " ms\n";
+    cout << "Set:\t"    << setRead  << " ms\n";
 
     return 0;
 }
@@ -53,9 +57,8 @@ int main() {
 long inputVector(const vector<string>& data) {
     auto start{high_resolution_clock::now()};
 
-    for (int i{0}; i < 1000000; ++i) {
+    for (int i{0}; i < NUM_RUNS; ++i)
         vector<string> vec{data.begin(), data.end()};
-    }
 
     auto end{high_resolution_clock::now()};
     return duration_cast<milliseconds>(end - start).count();
@@ -63,14 +66,20 @@ long inputVector(const vector<string>& data) {
 
 long inputList(const vector<string>& data) {
     auto start{high_resolution_clock::now()};
-    list<string> myList{data.begin(), data.end()};
+
+    for (int i{0}; i < NUM_RUNS; ++i)
+        list<string> myList{data.begin(), data.end()};
+
     auto end{high_resolution_clock::now()};
     return duration_cast<milliseconds>(end - start).count();
 }
 
 long inputSet(const vector<string>& data) {
     auto start{high_resolution_clock::now()};
-    set<string> st{data.begin(), data.end()};
+
+    for (int i{0}; i < NUM_RUNS; ++i)
+        set<string> st{data.begin(), data.end()};
+
     auto end{high_resolution_clock::now()};
     return duration_cast<milliseconds>(end - start).count();
 }
@@ -79,7 +88,12 @@ long inputSet(const vector<string>& data) {
 // sort vec
 long sortVector(vector<string> data) {
     auto start{high_resolution_clock::now()};
-    sort(data.begin(), data.end());
+
+    for (int i{0}; i < NUM_RUNS; ++i) {
+        vector<string> temp{data};
+        sort(temp.begin(), temp.end());
+    }
+
     auto end{high_resolution_clock::now()};
     return duration_cast<milliseconds>(end - start).count();
 }
@@ -87,7 +101,10 @@ long sortVector(vector<string> data) {
 // sort list
 long sortList(list<string> data) {
     auto start{high_resolution_clock::now()};
-    data.sort();
+    for (int i{0}; i < NUM_RUNS; ++i) {
+        list<string> temp{data};
+        temp.sort();
+    }
     auto end{high_resolution_clock::now()};
     return duration_cast<milliseconds>(end - start).count();
 }
