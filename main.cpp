@@ -1,3 +1,4 @@
+// COMSC-210 | Lab 25 | Barsbek
 #include <iostream>
 #include <chrono>
 #include <fstream>
@@ -29,8 +30,6 @@ long deleteList(list<string> data);
 long deleteSet(set<string> data);
 
 int main() {
-    string filename{"codes.txt"};
-
     ifstream fileInput{"codes.txt"};
     if (!fileInput) { // check if file opens
         cerr << "File not found\n";
@@ -43,26 +42,48 @@ int main() {
         data.push_back(line);
     }
 
-    cout << "Loaded lines: " << data.size() << '\n';
+    list<string> dataList{data.begin(), data.end()};
+    set<string> dataSet{data.begin(), data.end()};
+
     long vecRead {inputVector(data)};
     long listRead {inputList(data)};
     long setRead {inputSet(data)};
 
-    cout << "READ TEST\n";
-    cout << "Vector:\t" << vecRead  << " ms\n";
-    cout << "List:\t"   << listRead << " ms\n";
-    cout << "Set:\t"    << setRead  << " ms\n";
+    long vecSort{sortVector(data)};
+    long listSort{sortList(dataList)};
 
-    // list<string> dataList{data.begin(), data.end()};
-    // set<string> dataSet{data.begin(), data.end()};
-    //
-    // long vecInsert{insertVector(data)};
-    // long listInsert{insertList(dataList)};
-    // long setInsert{insertSet(dataSet)};
-    //
-    // cout << "\nINSERT TEST\n";
-    // cout << "Vector:\t" << vecInsert << " ms\n";
+    long vecInsert{insertVector(data)};
+    long listInsert{insertList(dataList)};
+    long setInsert{insertSet(dataSet)};
 
+    long vecDelete{deleteVector(data)};
+    long listDelete{deleteList(dataList)};
+    long setDelete{deleteSet(dataSet)};
+
+    cout << right << setw(10) << "Operation"
+         << setw(10) << "Vector"
+         << setw(10) << "List"
+         << setw(10) << "Set" << "\n";
+
+    cout << right << setw(10) << "Read"
+         << setw(10) << vecRead
+         << setw(10) << listRead
+         << setw(10) << setRead << "\n";
+
+    cout << right << setw(10) << "Sort"
+         << setw(10) << vecSort
+         << setw(10) << listSort
+         << setw(10) << -1 << "\n";
+
+    cout << right << setw(10) << "Insert"
+         << setw(10) << vecInsert
+         << setw(10) << listInsert
+         << setw(10) << setInsert << "\n";
+
+    cout << right << setw(10) << "Delete"
+         << setw(10) << vecDelete
+         << setw(10) << listDelete
+         << setw(10) << setDelete << "\n";
 
     return 0;
 }
@@ -188,6 +209,23 @@ long deleteVector(vector<string> data) {
 }
 
 // TODO: delete list
+long deleteList(list<string> data) {
+    auto start{high_resolution_clock::now()};
+
+    for (int i{0}; i < NUM_RUNS; ++i) {
+        list<string> temp{data};
+
+        auto it = temp.begin();
+        for (int j{0}; j < temp.size()/2; ++j) {
+            ++it;
+        }
+
+        temp.erase(it);
+    }
+
+    auto end{high_resolution_clock::now()};
+    return duration_cast<milliseconds>(end - start).count();
+}
 
 // delete set
 long deleteSet(set<string> data) {
