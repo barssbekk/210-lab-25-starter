@@ -24,6 +24,8 @@ long insertVector(vector<string> data);
 long insertSet(set<string> data);
 
 long deleteVector(vector<string> data);
+long deleteList(list<string> data);
+long deleteSet(set<string> data);
 
 int main() {
     string filename{"codes.txt"};
