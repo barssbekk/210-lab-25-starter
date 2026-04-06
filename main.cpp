@@ -21,6 +21,7 @@ long sortList(list<string> data);
 // no need std::sort for set, set alr sorted
 
 long insertVector(vector<string> data);
+long insertList(list<string> data);
 long insertSet(set<string> data);
 
 long deleteVector(vector<string> data);
@@ -51,6 +52,17 @@ int main() {
     cout << "Vector:\t" << vecRead  << " ms\n";
     cout << "List:\t"   << listRead << " ms\n";
     cout << "Set:\t"    << setRead  << " ms\n";
+
+    // list<string> dataList{data.begin(), data.end()};
+    // set<string> dataSet{data.begin(), data.end()};
+    //
+    // long vecInsert{insertVector(data)};
+    // long listInsert{insertList(dataList)};
+    // long setInsert{insertSet(dataSet)};
+    //
+    // cout << "\nINSERT TEST\n";
+    // cout << "Vector:\t" << vecInsert << " ms\n";
+
 
     return 0;
 }
