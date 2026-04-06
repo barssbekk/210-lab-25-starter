@@ -14,6 +14,8 @@ long inputVector(const vector<string>& data);
 long inputList(const vector<string>& data);
 long inputSet(const vector<string>& data);
 
+long sortVector(vector<string> data);
+long sortList(list<string> data);
 
 int main() {
     string filename{"codes.txt"};
@@ -51,6 +53,20 @@ long inputList(const vector<string>& data) {
 long inputSet(const vector<string>& data) {
     auto start{high_resolution_clock::now()};
     set<string> st{data.begin(), data.end()};
+    auto end{high_resolution_clock::now()};
+    return duration_cast<milliseconds>(end - start).count();
+}
+
+long sortVector(vector<string> data) {
+    auto start{high_resolution_clock::now()};
+    sort(data.begin(), data.end());
+    auto end{high_resolution_clock::now()};
+    return duration_cast<milliseconds>(end - start).count();
+}
+
+long sortList(list<string> data) {
+    auto start{high_resolution_clock::now()};
+    data.sort();
     auto end{high_resolution_clock::now()};
     return duration_cast<milliseconds>(end - start).count();
 }
